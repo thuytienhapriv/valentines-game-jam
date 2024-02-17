@@ -7,6 +7,7 @@ using static UnityEngine.Rendering.DebugUI;
 public class IngredientList : MonoBehaviour
 {
     public static IngredientList instance;
+
     public GameObject[] ing;
     public Dictionary<string, GameObject> ingredient;
     public bool mouseHoversCauldron;

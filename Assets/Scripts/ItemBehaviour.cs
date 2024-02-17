@@ -6,9 +6,7 @@ using UnityEngine.UI;
 
 public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
-    public GameObject item;
-    [SerializeField] private Image inventoryBounds;
-    
+    public GameObject item;    
     private float scaleDown = 0.2f;
     private float potionScale = 0.1f;
 
@@ -62,38 +60,31 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     {
         if (item.CompareTag("ItemInInventory"))
         {
+            int ind = 0;
+            string parentName = item.transform.parent.name;
+            for (int i = 0; i < Inventory.instance.inventorySlot.Length; ++i)
+            {
+                //Debug.Log(Inventory.instance.inventorySlot[i].name);
+                if (Inventory.instance.inventorySlot[i].name == parentName)
+                {
+                    ind = i; break;
+                }
+            }
+
+            Debug.Log("parent is in slot nr " + ind);
+
             item.GetComponent<Image>().raycastTarget = true;
 
-            if (Inventory.instance.mouseHoversInventory == true)
+            if (Inventory.instance.mouseHoversInventory == false)
             {
-                if (IngredientList.instance.mouseHoversCauldron == false)
+
+                if (IngredientList.instance.mouseHoversCauldron == true)
                 {
-                    Debug.Log("mouse aint over cauldron");
-                    int ind = 0;
-                    for (int i = 0; i < Inventory.instance.inInventory.Length; ++i)
-                    {
-                        if (Inventory.instance.inInventory[i] == item)
-                        {
-                            i = ind; break;
-                        }
-                    }
-                    Debug.Log(ind);
-                    item.transform.position = Inventory.instance.inventorySlot[ind].transform.position;
-                    item.transform.localPosition = Vector3.zero;
-                } 
-                else
-                {
+                    // if on cauldron - add to soup
                     Debug.Log("add to soup !!!");
-                    int ind = 0;
-                    for (int i = 0; i < Inventory.instance.inInventory.Length; ++i)
-                    {
-                        if (Inventory.instance.inInventory[i] == item)
-                        {
-                            Inventory.instance.isEmpty[i] = true;
-                            Inventory.instance.inInventory[i] = null;
-                            i = ind; break;
-                        }
-                    }
+
+                    Inventory.instance.isEmpty[ind] = true;
+                    Inventory.instance.inInventory[ind] = null;
                     
                     int ingNum = FindFirstInPotion();
                     IngredientList.instance.inPotion[ingNum] = item;
@@ -101,21 +92,26 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
                     item.transform.position = IngredientList.instance.potionSlot[ingNum].transform.position;
                     item.transform.localScale = new Vector3(potionScale, potionScale, potionScale);
                 }
+                else
+                {
+                    // if anywhere, destroy
+                    Inventory.instance.isEmpty[ind] = true;
+                    Inventory.instance.inInventory[ind] = null;
+                    Destroy(item);
+                }
+
             }
             else
             {
-                for (int i = 0; i < Inventory.instance.inInventory.Length; ++i)
-                {
-                    if (Inventory.instance.inInventory[i] == item)
-                    {
-                        Inventory.instance.isEmpty[i] = true;
-                        Inventory.instance.inInventory[i] = null; break;
-                    }
-                }
-                Destroy(item);
+                // if on inventory
+                Debug.Log("mouse aint over cauldron or inventory");
+                
+                item.transform.position = Inventory.instance.inventorySlot[ind].transform.position;
+                item.transform.localPosition = Vector3.zero;
             }
         }
     }
+    
 
     private bool CheckIfFull()
     {

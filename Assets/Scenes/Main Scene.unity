@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 28119953}
   - component: {fileID: 28119956}
   - component: {fileID: 28119955}
-  - component: {fileID: 28119954}
   m_Layer: 5
   m_Name: slot 1
   m_TagString: Untagged
@@ -161,18 +160,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1290}
   m_SizeDelta: {x: 143.75, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &28119954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 28119952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2263af9caef3b2e4db44ad077937ab59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &28119955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +297,6 @@ GameObject:
   - component: {fileID: 76351738}
   - component: {fileID: 76351741}
   - component: {fileID: 76351740}
-  - component: {fileID: 76351739}
   m_Layer: 5
   m_Name: slot 2
   m_TagString: Untagged
@@ -337,18 +323,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 672.716}
   m_SizeDelta: {x: 143.75, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &76351739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76351737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2263af9caef3b2e4db44ad077937ab59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &76351740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,7 +412,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  inventoryBounds: {fileID: 0}
 --- !u!114 &85770755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,90 +450,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 85770752}
   m_CullTransparentMesh: 1
---- !u!1 &172774554
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 172774556}
-  - component: {fileID: 172774555}
-  m_Layer: 0
-  m_Name: grassweed
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &172774555
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172774554}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e191476216cc4c2449a20f96b3ca61b0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.5625, y: 0.65625}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &172774556
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172774554}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.791136, y: 2.5866835, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &350214264
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,7 +547,6 @@ GameObject:
   - component: {fileID: 377963274}
   - component: {fileID: 377963277}
   - component: {fileID: 377963276}
-  - component: {fileID: 377963275}
   m_Layer: 5
   m_Name: slot 3
   m_TagString: Untagged
@@ -685,18 +573,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 55.4321}
   m_SizeDelta: {x: 143.75, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &377963275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377963273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2263af9caef3b2e4db44ad077937ab59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &377963276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -975,7 +851,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  inventoryBounds: {fileID: 0}
 --- !u!114 &553105368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1569,7 +1444,6 @@ GameObject:
   - component: {fileID: 1126786953}
   - component: {fileID: 1126786956}
   - component: {fileID: 1126786955}
-  - component: {fileID: 1126786954}
   m_Layer: 5
   m_Name: inventory background
   m_TagString: Untagged
@@ -1596,18 +1470,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 666.6667}
   m_SizeDelta: {x: 280, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1126786954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126786952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2263af9caef3b2e4db44ad077937ab59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1126786955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2642,7 +2504,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  inventoryBounds: {fileID: 0}
 --- !u!114 &1908054295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2995,4 +2856,3 @@ SceneRoots:
   - {fileID: 2071764886}
   - {fileID: 1970199383}
   - {fileID: 1476455828}
-  - {fileID: 172774556}
