@@ -9,8 +9,10 @@ public class IngredientList : MonoBehaviour
     public GameObject[] ing;
     public Dictionary<string, GameObject> ingredient;
 
-    void Awake()
+    private void Awake()
     {
+        if (instance == null) { instance = this; }
+    
         ingredient = new Dictionary<string, GameObject>()
         {
          {"ing1", ing[0]},

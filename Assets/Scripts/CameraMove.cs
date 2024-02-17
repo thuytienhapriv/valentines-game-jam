@@ -23,15 +23,23 @@ public class CameraMove : MonoBehaviour
 
     public void MoveToLeft()
     {
-        Debug.Log("moving to the left from " + virtualCamera.transform.localPosition);
-        virtualCamera.ForceCameraPosition(new Vector3(currentPos.x + moveStep, currentPos.y, currentPos.z), Quaternion.Euler(0, 0, 0));
+        //Debug.Log("moving to the left from " + virtualCamera.transform.localPosition);
+        currentPos.x -= moveStep;
+        virtualCamera.ForceCameraPosition(new Vector3(currentPos.x, currentPos.y, currentPos.z), Quaternion.Euler(0, 0, 0));
+        //Debug.Log("now its " + virtualCamera.transform.localPosition);
+    }
+
+    public void MoveToRight()
+    {
+        //Debug.Log("moving to the right from " + virtualCamera.transform.localPosition);
         currentPos.x += moveStep;
-        Debug.Log("now its " + virtualCamera.transform.localPosition);
+        virtualCamera.ForceCameraPosition(new Vector3(currentPos.x, currentPos.y, currentPos.z), Quaternion.Euler(0, 0, 0));
+        //Debug.Log("now its " + virtualCamera.transform.localPosition);
     }
 
 
     // Start is called before the first frame update
-    
+
     // Update is called once per frame
     void Update()
     {
