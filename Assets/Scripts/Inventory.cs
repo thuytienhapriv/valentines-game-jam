@@ -10,22 +10,25 @@ public class Inventory : MonoBehaviour
 
     public Image[] inventorySlot;
     public bool[] isEmpty;
-    public bool[] inInventory;
+    public GameObject[] inInventory;
+    public bool mouseHoversInventory;
+
 
     private void Awake()
     {
         if (instance == null) { instance = this; }
+        mouseHoversInventory = false;
     }
 
     void Start()
     {
         isEmpty = new bool[inventorySlot.Length];
-        inInventory = new bool[inventorySlot.Length];
+        inInventory = new GameObject[inventorySlot.Length];
 
         for (int i = 0; i < inventorySlot.Length; i++)
         {
             isEmpty[i] = true;
-            inInventory[1] = false;
+            inInventory[1] = null;
         }
     }
 

@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler
+public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
     public GameObject item;
-    [SerializeField] private Canvas canvas;
-    private List<Transform> slotPos = new List<Transform> { };
-    private List<GameObject> itemCopies = new List<GameObject> { };
+    [SerializeField] private Image inventoryBounds;
+    
     private float scaleDown = 0.2f;
 
     public void OnEnable()
@@ -24,42 +23,77 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler
 
         if (CheckIfFull() == false && item.CompareTag("ItemInScene")) 
         {
-            // put into first empty slot
-            int slotNum = FindFirstEmpty();
-            slotPos.Add(Inventory.instance.inventorySlot[slotNum].transform);
-            slotPos.Add(Inventory.instance.inventorySlot[slotNum].transform); // slotPos -> where the icon will show
-            Inventory.instance.inInventory[slotNum] = true;
+            
+            int slotNum = FindFirstEmpty(); // put into first empty slot
             Inventory.instance.isEmpty[slotNum] = false;
 
             Debug.Log(slotNum + " " + Inventory.instance.inventorySlot[slotNum].name);
 
-            GameObject inventoryIcon = new GameObject();
+            GameObject inventoryIcon = Instantiate(item, Inventory.instance.inventorySlot[slotNum].transform);
+            Inventory.instance.inInventory[slotNum] = inventoryIcon;
 
-            itemCopies.Add(inventoryIcon);
-
-            inventoryIcon = Instantiate(item, Inventory.instance.inventorySlot[slotNum].transform);
-            
-            //inventoryIcon.transform.position = Vector3(0, 0, 0);
-            //inventoryIcon.transform.SetParent(Inventory.instance.inventorySlot[slotNum].transform);
-
-
-            inventoryIcon.GetComponent<Image>().sprite = item.GetComponent<Image>().sprite;
             inventoryIcon.tag = "ItemInInventory";
+            inventoryIcon.GetComponent<Image>().sprite = item.GetComponent<Image>().sprite;
+            //inventoryIcon.transform.position = Inventory.instance.inventorySlot[slotNum].transform.position;
             inventoryIcon.transform.localPosition = Vector3.zero;
             inventoryIcon.transform.localScale = new Vector3(scaleDown, scaleDown, scaleDown);
             
         }
     }
 
-    public void OnDrag(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        if (item.CompareTag("ItemInInventory")) {
-            Vector3 dragPos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
-            item.transform.position = dragPos;
-            
+        if (item.CompareTag("ItemInInventory"))
+        {
+            item.GetComponent<Image>().raycastTarget = false;
         }
     }
 
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (item.CompareTag("ItemInInventory")) {
+
+            Debug.Log("dragging " + item.transform.position);
+            Vector3 dragPos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
+            item.transform.position = dragPos;
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (item.CompareTag("ItemInInventory"))
+        {
+            item.GetComponent<Image>().raycastTarget = true;
+
+            Debug.Log("end drag");
+            if (Inventory.instance.mouseHoversInventory == false)
+            {
+                for (int i = 0; i < Inventory.instance.inInventory.Length; ++i)
+                {
+                    if (Inventory.instance.inInventory[i] == item)
+                    {
+                        Inventory.instance.isEmpty[i] = true;
+                        Inventory.instance.inInventory[i] = null; break;
+                    }
+                }
+                Destroy(item);
+            }
+            else
+            {
+                int ind = 0;
+                for (int i = 0; i < Inventory.instance.inInventory.Length; ++i)
+                {
+                    if (Inventory.instance.inInventory[i] == item)
+                    {
+                        i = ind; break;
+                    }
+                }
+                Debug.Log(ind);
+                item.transform.position = Inventory.instance.inventorySlot[ind].transform.position;
+                item.transform.localPosition = Vector3.zero;
+            }
+        }
+    }
 
     private bool CheckIfFull()
     {
@@ -92,18 +126,20 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler
 
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0) != false)
+        {
             int place = 0;
-            foreach (var item in itemCopies)
+
+            for (int i = 0; i < Inventory.instance.inInventory.Length; ++i)
             {
-                
-
-                //item.transform.position = new Vector3 (0, 0, 0);
-
-                place++;
-                // instantiate the copy onto the position
+                if (Inventory.instance.inInventory[i] != null)
+                {
+                    /*Inventory.instance.inInventory[i].transform.position = Inventory.instance.inventorySlot[i].transform.position;
+                    Inventory.instance.inInventory[i].transform.localPosition = Vector3.zero;
+                    place++;*/
+                }
             }
-        
+        }
     
     }
 }
