@@ -10,6 +10,7 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     [SerializeField] private Image inventoryBounds;
     
     private float scaleDown = 0.2f;
+    private float potionScale = 0.1f;
 
     public void OnEnable()
     {
@@ -37,7 +38,6 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
             //inventoryIcon.transform.position = Inventory.instance.inventorySlot[slotNum].transform.position;
             inventoryIcon.transform.localPosition = Vector3.zero;
             inventoryIcon.transform.localScale = new Vector3(scaleDown, scaleDown, scaleDown);
-            
         }
     }
 
@@ -53,7 +53,6 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     {
         if (item.CompareTag("ItemInInventory")) {
 
-            Debug.Log("dragging " + item.transform.position);
             Vector3 dragPos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
             item.transform.position = dragPos;
         }
@@ -65,8 +64,45 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         {
             item.GetComponent<Image>().raycastTarget = true;
 
-            Debug.Log("end drag");
-            if (Inventory.instance.mouseHoversInventory == false)
+            if (Inventory.instance.mouseHoversInventory == true)
+            {
+                if (IngredientList.instance.mouseHoversCauldron == false)
+                {
+                    Debug.Log("mouse aint over cauldron");
+                    int ind = 0;
+                    for (int i = 0; i < Inventory.instance.inInventory.Length; ++i)
+                    {
+                        if (Inventory.instance.inInventory[i] == item)
+                        {
+                            i = ind; break;
+                        }
+                    }
+                    Debug.Log(ind);
+                    item.transform.position = Inventory.instance.inventorySlot[ind].transform.position;
+                    item.transform.localPosition = Vector3.zero;
+                } 
+                else
+                {
+                    Debug.Log("add to soup !!!");
+                    int ind = 0;
+                    for (int i = 0; i < Inventory.instance.inInventory.Length; ++i)
+                    {
+                        if (Inventory.instance.inInventory[i] == item)
+                        {
+                            Inventory.instance.isEmpty[i] = true;
+                            Inventory.instance.inInventory[i] = null;
+                            i = ind; break;
+                        }
+                    }
+                    
+                    int ingNum = FindFirstInPotion();
+                    IngredientList.instance.inPotion[ingNum] = item;
+                    item.tag = "ItemInCauldron";
+                    item.transform.position = IngredientList.instance.potionSlot[ingNum].transform.position;
+                    item.transform.localScale = new Vector3(potionScale, potionScale, potionScale);
+                }
+            }
+            else
             {
                 for (int i = 0; i < Inventory.instance.inInventory.Length; ++i)
                 {
@@ -77,20 +113,6 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
                     }
                 }
                 Destroy(item);
-            }
-            else
-            {
-                int ind = 0;
-                for (int i = 0; i < Inventory.instance.inInventory.Length; ++i)
-                {
-                    if (Inventory.instance.inInventory[i] == item)
-                    {
-                        i = ind; break;
-                    }
-                }
-                Debug.Log(ind);
-                item.transform.position = Inventory.instance.inventorySlot[ind].transform.position;
-                item.transform.localPosition = Vector3.zero;
             }
         }
     }
@@ -116,7 +138,6 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         {
             if (Inventory.instance.isEmpty[i] == true)
             {
-                Debug.Log("first empty is " + i);
                 result = i;
                 return result;
             }
@@ -124,22 +145,17 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
         return result;
     }
 
-    void Update()
+    private int FindFirstInPotion()
     {
-        if (Input.GetMouseButtonDown(0) != false)
+        int result = 0;
+        for (int i = 0; i < IngredientList.instance.inPotion.Length; i++)
         {
-            int place = 0;
-
-            for (int i = 0; i < Inventory.instance.inInventory.Length; ++i)
+            if (IngredientList.instance.inPotion[i] == null)
             {
-                if (Inventory.instance.inInventory[i] != null)
-                {
-                    /*Inventory.instance.inInventory[i].transform.position = Inventory.instance.inventorySlot[i].transform.position;
-                    Inventory.instance.inInventory[i].transform.localPosition = Vector3.zero;
-                    place++;*/
-                }
+                result = i;
+                return result;
             }
         }
-    
+        return result;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
 
 public class IngredientList : MonoBehaviour
@@ -8,9 +9,16 @@ public class IngredientList : MonoBehaviour
     public static IngredientList instance;
     public GameObject[] ing;
     public Dictionary<string, GameObject> ingredient;
+    public bool mouseHoversCauldron;
+
+    public Image[] potionSlot;
+    public GameObject[] inPotion;
 
     private void Awake()
     {
+        mouseHoversCauldron = false;
+        inPotion = new GameObject[3];
+
         if (instance == null) { instance = this; }
     
         ingredient = new Dictionary<string, GameObject>()

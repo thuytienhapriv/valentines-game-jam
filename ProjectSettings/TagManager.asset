@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ItemInScene
   - ItemInInventory
+  - ItemInCauldron
   layers:
   - Default
   - TransparentFX

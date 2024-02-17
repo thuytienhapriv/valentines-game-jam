@@ -8,11 +8,10 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
 
-    public Image[] inventorySlot;
-    public bool[] isEmpty;
-    public GameObject[] inInventory;
     public bool mouseHoversInventory;
-
+    public bool[] isEmpty;
+    public Image[] inventorySlot;
+    public GameObject[] inInventory;
 
     private void Awake()
     {
