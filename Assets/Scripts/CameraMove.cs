@@ -18,7 +18,6 @@ public class CameraMove : MonoBehaviour
 
         currentPos = virtualCamera.transform.localPosition;
         moveStep = 18; // should be Screen.width;
-        Debug.Log(moveStep);
     }
 
 
