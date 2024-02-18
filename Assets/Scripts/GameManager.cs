@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
-
+        Debug.Log("Congrats");
     }
 
 /*
