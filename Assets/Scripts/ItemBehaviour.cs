@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
     public GameObject item;    
-    private float scaleDown = 0.2f;
-    private float potionScale = 0.1f;
+    private float scaleDown = 0.5f;
+    private float potionScale = 0.5f;
 
     public enum ingredient { in1, in2, in3, in4, in5, in6, in7, in8, in9 }
     public ingredient ingredientName;
@@ -98,9 +98,26 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
 
                     if (ingNum == 2)
                     {
-                        // making potion
-                        IngredientList.instance.CheckPotion();
-                        //IngredientList.instance.nowMakePotion = true;
+                        // making potion // checkPotion returns IsGood
+                        if (IngredientList.instance.CheckPotion() == false) 
+                        {
+                            GameManager.instance.Lose(); // you lose the game
+                        } else
+                        {
+                            GameManager.instance.NextClient();
+                            Timer.instance.timeRemaining = Timer.instance.maxTime;
+                        }
+
+                        // destroy the small cauldron icons
+                        foreach (var gameObj in GameObject.FindGameObjectsWithTag("ItemInCauldron"))
+                        {
+                            Destroy(gameObj);
+                        }
+
+                        for (int i=0; i < IngredientList.instance.inPotion.Length; i++)
+                        {
+                            IngredientList.instance.inPotion[i] = null;
+                        }
                     }
                 }
                 else

@@ -6,7 +6,7 @@ public class ClientManager : MonoBehaviour
 {
     public static ClientManager instance;
 
-    public enum animal {catDog, flamingos, rabbitWolf } public animal clients;
+    public enum animal {catDog, flamingos, rabbitWolf } public animal Clients;
     public enum potion { romantic, platonic, parental } public potion Recipe;
     
     public GameObject[] potionIngredient = new GameObject[3];
@@ -14,9 +14,10 @@ public class ClientManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null) { instance = this; }
+        GameManager.instance.currentClient = "catDog";
     }
 
-    void Start()
+    void Update()
     {
         switch (Recipe)
         {
@@ -37,7 +38,7 @@ public class ClientManager : MonoBehaviour
                 break;
         }
 
-        switch (clients)
+        switch (Clients)
         {
             case animal.catDog:
                 Recipe = potion.platonic;
@@ -49,10 +50,29 @@ public class ClientManager : MonoBehaviour
                 Recipe = potion.parental;
                 break;
         }
+
     }
 
-    void Update()
+    public void clientIsCatDog()
     {
-        
+        Clients = animal.catDog;
+        Recipe = potion.platonic;
+
     }
+
+    public void clientIsFlamingos()
+    {
+        Clients = animal.flamingos;
+        Recipe = potion.romantic;
+
+    }
+
+    public void clientIsRabbitWolf()
+    {
+        Clients = animal.rabbitWolf;
+        Recipe = potion.parental;
+
+    }
+
+    
 }
