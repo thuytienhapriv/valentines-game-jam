@@ -131,6 +131,8 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         Debug.Log("Congrats");
+        SceneManager.LoadScene(2);
+
     }
 
     public void PlayGame()
