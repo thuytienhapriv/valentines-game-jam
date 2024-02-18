@@ -13,16 +13,19 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     public enum ingredient { in1, in2, in3, in4, in5, in6, in7, in8, in9 }
     public ingredient ingredientName;
 
+    public AudioSource clickSound;
+
     public void OnEnable()
     {
         if (item == null) { item = gameObject; }
         GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
+        if (clickSound == null) { GetComponent<AudioSource>(); }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         //Debug.Log("clicked");
-
+        clickSound.Play();
         if (CheckIfFull() == false && item.CompareTag("ItemInScene")) 
         {
             
