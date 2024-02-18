@@ -8,17 +8,37 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public bool continueGame;
     public string currentClient;
+    public bool dialogueNow;
+    [SerializeField] private GameObject dialogueCanvas;
+    [SerializeField] private GameObject timerGO;
 
     private void Awake()
     {
         if (instance == null) { instance = this; }
         continueGame = false;
+        dialogueNow = false;
     }
 
     private void Start()
     {
+        // talking to catndog
         ClientManager.instance.clientIsCatDog(); // choose first client
+        dialogueNow = true;
+        dialogueCanvas.SetActive(true);
+
         Debug.Log("client " + currentClient);
+    }
+
+    private void Update()
+    {
+        if (dialogueNow == true)
+        {
+            Time.timeScale = 0f;
+        } else
+        {
+            Time.timeScale = 1f;
+            dialogueCanvas.SetActive(false);
+        }
     }
 
     public void NextClient()
@@ -27,10 +47,15 @@ public class GameManager : MonoBehaviour
         {
             ClientManager.instance.clientIsFlamingos(); // 2nd clients are flamingos
             currentClient = "flamingos";
+            dialogueNow = true;
+            dialogueCanvas.SetActive(true) ;
+
         } else if (currentClient == "flamingos")
         {
             ClientManager.instance.clientIsRabbitWolf(); // 3rd clients are flamingos
             currentClient = "rabbitWolf";
+            dialogueNow = true;
+            dialogueCanvas.SetActive(true);
         } else if (currentClient == "rabbitWolf")
         {
             Win();

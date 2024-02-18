@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class Dialogue : MonoBehaviour
 {
+
     public TextMeshProUGUI textComponent;
     public string[] lines;
     public float textSpeed;
 
-    private int index;
+    private int index; // ktory element z string []
 
     private void Start()
     {
@@ -20,12 +21,21 @@ public class Dialogue : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
+            if (index == 5 || index == 11 || index == 16)
+            {
+                GameManager.instance.dialogueNow = false;
+                if (index == 5 || index == 11)
+                { index++; }
+            }
             if (textComponent.text == lines[index])
             {
+                //Debug.Log("index" + index);
                 NextLine();
+
             } else
             {
                 StopAllCoroutines();
+                //NextLine();
                 textComponent.text = lines[index];
             }
         }
