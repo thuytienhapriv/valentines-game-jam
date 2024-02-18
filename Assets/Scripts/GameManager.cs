@@ -133,6 +133,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("Congrats");
     }
 
+    public void PlayGame()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 /*
     IEnumerator PlayAnim(string anim)
     {
