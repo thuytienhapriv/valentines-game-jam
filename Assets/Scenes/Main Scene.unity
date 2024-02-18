@@ -1216,8 +1216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recipeBook: {fileID: 729495374}
-  page1: {fileID: 818035794}
-  page2: {fileID: 1123136005}
+  page1: {fileID: 1123136005}
+  page2: {fileID: 818035794}
   page3: {fileID: 632063897}
   pagenumber: 0
 --- !u!114 &419113904
