@@ -662,7 +662,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 268286319}
-  - component: {fileID: 268286318}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -670,25 +669,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &268286318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268286317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfad3728bafb0e5409f8fd7a8f92e74d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  continueGame: 0
-  currentClient: 
-  dialogueNow: 0
-  countNow: 0
-  countLoseNow: 0
-  dialogueCanvas: {fileID: 2071764882}
-  timerGO: {fileID: 0}
 --- !u!4 &268286319
 Transform:
   m_ObjectHideFlags: 0
@@ -791,6 +771,7 @@ GameObject:
   - component: {fileID: 305882057}
   - component: {fileID: 305882056}
   - component: {fileID: 305882055}
+  - component: {fileID: 305882059}
   m_Layer: 0
   m_Name: frog MC
   m_TagString: Untagged
@@ -901,6 +882,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &305882059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305882054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfad3728bafb0e5409f8fd7a8f92e74d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  continueGame: 0
+  currentClient: 
+  dialogueNow: 0
+  countNow: 0
+  countLoseNow: 0
+  dialogueCanvas: {fileID: 2071764882}
+  timerGO: {fileID: 0}
 --- !u!1 &350214264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,7 +1219,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.45, y: 0}
+  m_AnchoredPosition: {x: -5.45, y: 0.24}
   m_SizeDelta: {x: 243.75, y: 87.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &495034802
@@ -3501,7 +3501,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -129.80275, y: -87.657684, z: -135.6449, w: -51.7299}
+  m_margin: {x: -129.80275, y: -73.4763, z: -135.6449, w: -39.3212}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4600,8 +4600,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -376.39993, y: -213.12}
-  m_SizeDelta: {x: 55.32, y: 136.4}
+  m_AnchoredPosition: {x: -376.39993, y: -298.64}
+  m_SizeDelta: {x: 55.32, y: 118.15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1921807028
 MonoBehaviour:
@@ -5101,7 +5101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2071764883
 MonoBehaviour:
   m_ObjectHideFlags: 0
