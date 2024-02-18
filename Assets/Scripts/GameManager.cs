@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,14 +10,21 @@ public class GameManager : MonoBehaviour
     public bool continueGame;
     public string currentClient;
     public bool dialogueNow;
+    public bool countNow;
+    public bool countLoseNow;
     [SerializeField] private GameObject dialogueCanvas;
     [SerializeField] private GameObject timerGO;
+
+    private float time = 0f;
 
     private void Awake()
     {
         if (instance == null) { instance = this; }
         continueGame = false;
         dialogueNow = false;
+        countNow = false;
+        countLoseNow = false;
+        FindAnyObjectByType<PlayerBehaviour>().Idle();
     }
 
     private void Start()
@@ -34,11 +42,41 @@ public class GameManager : MonoBehaviour
         if (dialogueNow == true)
         {
             Time.timeScale = 0f;
+            
+            
         } else
         {
             Time.timeScale = 1f;
             dialogueCanvas.SetActive(false);
+            //FindAnyObjectByType<PlayerBehaviour>().Idle();
         }
+
+        if (countNow == true)
+        {
+            if (FindAnyObjectByType<PlayerBehaviour>().animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f)
+            {
+                if (FindAnyObjectByType<PlayerBehaviour>().animator.GetCurrentAnimatorStateInfo(0).IsName("frog_stir_plat") || FindAnyObjectByType<PlayerBehaviour>().animator.GetCurrentAnimatorStateInfo(0).IsName("frog_stir_love"))
+                {
+                    dialogueNow = true;
+                    dialogueCanvas.SetActive(true);
+                    countNow = false;
+                    FindAnyObjectByType<PlayerBehaviour>().Idle();
+                }
+            }
+        }
+
+        if (countLoseNow == true)
+        {
+            if (FindAnyObjectByType<PlayerBehaviour>().animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f)
+            {
+                if (FindAnyObjectByType<PlayerBehaviour>().animator.GetCurrentAnimatorStateInfo(0).IsName("frog_stir_plat_fail") || FindAnyObjectByType<PlayerBehaviour>().animator.GetCurrentAnimatorStateInfo(0).IsName("frog_stir_love_fail") || FindAnyObjectByType<PlayerBehaviour>().animator.GetCurrentAnimatorStateInfo(0).IsName("frog_stir_parent_fail"))
+                {
+                    countLoseNow = false;
+                    SceneManager.LoadScene(1);
+                }
+            }
+        }
+
     }
 
     public void NextClient()
@@ -47,25 +85,45 @@ public class GameManager : MonoBehaviour
         {
             ClientManager.instance.clientIsFlamingos(); // 2nd clients are flamingos
             currentClient = "flamingos";
-            dialogueNow = true;
-            dialogueCanvas.SetActive(true) ;
 
+            FindAnyObjectByType<PlayerBehaviour>().PlatWin();
+            countNow = true;
         } else if (currentClient == "flamingos")
         {
             ClientManager.instance.clientIsRabbitWolf(); // 3rd clients are flamingos
             currentClient = "rabbitWolf";
-            dialogueNow = true;
-            dialogueCanvas.SetActive(true);
+
+            FindAnyObjectByType<PlayerBehaviour>().LoveWin();
+            countNow = true;
+
+            /*dialogueNow = true;
+            dialogueCanvas.SetActive(true);*/
         } else if (currentClient == "rabbitWolf")
         {
             Win();
         }
-        Debug.Log("client " + currentClient);
+        //Debug.Log("client " + currentClient);
 
     }
 
     public void Lose()
     {
+        if (currentClient == "catDog")
+        {
+            FindAnyObjectByType<PlayerBehaviour>().LoveLose();
+            countLoseNow = true;
+        } else if (currentClient == "flamingos")
+        {
+            FindAnyObjectByType<PlayerBehaviour>().PlatLose();
+            countLoseNow = true;
+        } else if (currentClient == "rabbitWolf")
+        {
+            FindAnyObjectByType<PlayerBehaviour>().ParentLose();
+            countLoseNow = true;
+        }
+
+
+        
         Debug.Log("you lost vagshjdjiokfjbjk bjnlkjnbjk kn");
     }
 
@@ -74,5 +132,15 @@ public class GameManager : MonoBehaviour
 
     }
 
+/*
+    IEnumerator PlayAnim(string anim)
+    {
+        if (anim == "LoveWin") { FindAnyObjectByType<PlayerBehaviour>().LoveWin(); }
+        if (anim == "LoveLose") { FindAnyObjectByType<PlayerBehaviour>().LoveLose(); }
+        if (anim == "PlatWin") { FindAnyObjectByType<PlayerBehaviour>().PlatWin(); }
+        if (anim == "PlatLose") { FindAnyObjectByType<PlayerBehaviour>().PlatLose(); }
+
+        yield return null;
+    }*/
 
 }
