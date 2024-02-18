@@ -55,13 +55,14 @@ public class GameManager : MonoBehaviour
         {
             if (FindAnyObjectByType<PlayerBehaviour>().animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f)
             {
-                if (FindAnyObjectByType<PlayerBehaviour>().animator.GetCurrentAnimatorStateInfo(0).IsName("frog_stir_plat") || FindAnyObjectByType<PlayerBehaviour>().animator.GetCurrentAnimatorStateInfo(0).IsName("frog_stir_love"))
+                dialogueNow = true;
+                dialogueCanvas.SetActive(true);
+                countNow = false;
+                FindAnyObjectByType<PlayerBehaviour>().Idle();
+                /*if (FindAnyObjectByType<PlayerBehaviour>().animator.GetCurrentAnimatorStateInfo(0).IsName("frog_stir_plat") || FindAnyObjectByType<PlayerBehaviour>().animator.GetCurrentAnimatorStateInfo(0).IsName("frog_stir_love"))
                 {
-                    dialogueNow = true;
-                    dialogueCanvas.SetActive(true);
-                    countNow = false;
-                    FindAnyObjectByType<PlayerBehaviour>().Idle();
-                }
+                    
+                }*/
             }
         }
 
