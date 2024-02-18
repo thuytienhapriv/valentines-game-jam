@@ -10,6 +10,9 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     private float scaleDown = 0.2f;
     private float potionScale = 0.1f;
 
+    public enum ingredient { in1, in2, in3, in4, in5, in6, in7, in8, in9 }
+    public ingredient ingredientName;
+
     public void OnEnable()
     {
         if (item == null) { item = gameObject; }
@@ -26,7 +29,7 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
             int slotNum = FindFirstEmpty(); // put into first empty slot
             Inventory.instance.isEmpty[slotNum] = false;
 
-            Debug.Log(slotNum + " " + Inventory.instance.inventorySlot[slotNum].name);
+            //Debug.Log(slotNum + " " + Inventory.instance.inventorySlot[slotNum].name);
 
             GameObject inventoryIcon = Instantiate(item, Inventory.instance.inventorySlot[slotNum].transform);
             Inventory.instance.inInventory[slotNum] = inventoryIcon;
@@ -71,7 +74,7 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
                 }
             }
 
-            Debug.Log("parent is in slot nr " + ind);
+            //Debug.Log("parent is in slot nr " + ind);
 
             item.GetComponent<Image>().raycastTarget = true;
 
@@ -81,16 +84,24 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
                 if (IngredientList.instance.mouseHoversCauldron == true)
                 {
                     // if on cauldron - add to soup
-                    Debug.Log("add to soup !!!");
+                    //Debug.Log("add to soup !!!");
 
                     Inventory.instance.isEmpty[ind] = true;
                     Inventory.instance.inInventory[ind] = null;
                     
                     int ingNum = FindFirstInPotion();
-                    IngredientList.instance.inPotion[ingNum] = item;
+                    
+                    IngredientList.instance.inPotion[ingNum] = CorrespondingGO();
                     item.tag = "ItemInCauldron";
                     item.transform.position = IngredientList.instance.potionSlot[ingNum].transform.position;
                     item.transform.localScale = new Vector3(potionScale, potionScale, potionScale);
+
+                    if (ingNum == 2)
+                    {
+                        // making potion
+                        IngredientList.instance.CheckPotion();
+                        //IngredientList.instance.nowMakePotion = true;
+                    }
                 }
                 else
                 {
@@ -149,9 +160,27 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
             if (IngredientList.instance.inPotion[i] == null)
             {
                 result = i;
+                //Debug.Log("ing in potion nr " + result);
+
                 return result;
             }
         }
         return result;
+    }
+
+    private GameObject CorrespondingGO()
+    {
+        if (this.ingredientName == ingredient.in1) { return IngredientList.instance.ingredient["ing1"]; }
+        if (this.ingredientName == ingredient.in2) { return IngredientList.instance.ingredient["ing2"]; }
+        if (this.ingredientName == ingredient.in3) { return IngredientList.instance.ingredient["ing3"]; }
+        if (this.ingredientName == ingredient.in4) { return IngredientList.instance.ingredient["ing4"]; }
+        if (this.ingredientName == ingredient.in5) { return IngredientList.instance.ingredient["ing5"]; }
+        if (this.ingredientName == ingredient.in6) { return IngredientList.instance.ingredient["ing6"]; }
+        if (this.ingredientName == ingredient.in7) { return IngredientList.instance.ingredient["ing7"]; }
+        if (this.ingredientName == ingredient.in8) { return IngredientList.instance.ingredient["ing8"]; }
+        if (this.ingredientName == ingredient.in9) { return IngredientList.instance.ingredient["ing9"]; }
+
+
+        return null;
     }
 }

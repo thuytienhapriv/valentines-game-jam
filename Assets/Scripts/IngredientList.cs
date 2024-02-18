@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
@@ -14,14 +16,16 @@ public class IngredientList : MonoBehaviour
 
     public Image[] potionSlot;
     public GameObject[] inPotion;
+    public bool nowMakePotion;
 
     private void Awake()
     {
+        if (instance == null) { instance = this; }
+        
         mouseHoversCauldron = false;
         inPotion = new GameObject[3];
-
-        if (instance == null) { instance = this; }
-    
+        nowMakePotion = false;
+        
         ingredient = new Dictionary<string, GameObject>()
         {
          {"ing1", ing[0]},
@@ -35,6 +39,46 @@ public class IngredientList : MonoBehaviour
          {"ing9", ing[8]},
 
         };
+    }
+
+    public bool CheckPotion()
+    {
+        GameObject[] checkList = ClientManager.instance.potionIngredient;
+
+        bool isGood = true;/*
+        Debug.Log("Checking " + ClientManager.instance.potionIngredient[0] + " " + ClientManager.instance.potionIngredient[1] + " " + ClientManager.instance.potionIngredient[2]);
+        Debug.Log("Compare with " + inPotion[0] + " " + inPotion[1] + " " + inPotion[2]);
+        Debug.Log(i + " " + inPotion[i] + " " + ClientManager.instance.potionIngredient.Contains(inPotion[i]));*/
+
+        for (int i = 0; i < checkList.Length; i++)
+        {
+            bool ingExistsinList = true;
+
+            for (int j = 0; j < inPotion.Length; j++)
+            {
+                ingExistsinList = true;
+
+                if (inPotion[j] != checkList[i])
+                {
+                    ingExistsinList = false;
+                } else
+                {
+                    checkList[i] = null;
+                    break;
+                }
+
+                
+            }
+
+            if (ingExistsinList == false)
+            {
+                Debug.Log("potion is BAD");
+
+                isGood = false; return isGood;
+            }
+        }
+        Debug.Log("potion is GOOD");
+        return isGood;
     }
 
     // Update is called once per frame
