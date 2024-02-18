@@ -91,7 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 0}
   ingredientName: 6
-  clickSound: {fileID: 4050229298971600823, guid: 60b65d2df37e25848862decc9597db42, type: 3}
+  clickSound: {fileID: 0}
 --- !u!82 &6133774701687396283
 AudioSource:
   m_ObjectHideFlags: 0
@@ -102,8 +102,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8df9805748ef2774fba88a4a365adf8f, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: ce9d624f4e192794b81840418ec09f89, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

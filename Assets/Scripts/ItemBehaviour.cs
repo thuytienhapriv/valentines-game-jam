@@ -19,13 +19,16 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
     {
         if (item == null) { item = gameObject; }
         GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
-        if (clickSound == null) { GetComponent<AudioSource>(); }
+        if (clickSound == null) { clickSound = GetComponent<AudioSource>(); }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         //Debug.Log("clicked");
+        
         clickSound.Play();
+        Debug.Log("clicked");
+
         if (CheckIfFull() == false && item.CompareTag("ItemInScene")) 
         {
             
