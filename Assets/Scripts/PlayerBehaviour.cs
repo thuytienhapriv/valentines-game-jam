@@ -8,17 +8,18 @@ public class PlayerBehaviour : MonoBehaviour
     public string state;
     public int stirTime;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Update()
     {
-        /*state = "stir";
-        if (state == "stir")
+        if (animator.GetInteger("mode") != 10)
         {
-            animator.SetInteger("mode", 0);
-        }*/
+            gameObject.transform.position = new Vector3(22.9f, -1.88f, 0);
+        } else
+        {
+            gameObject.transform.position = new Vector3(20.9f, -1.88f, 0);
+
+        }
     }
 
-    
     public void Idle()
     {
         animator.SetInteger("mode", 10);
@@ -29,6 +30,16 @@ public class PlayerBehaviour : MonoBehaviour
     {
         animator.SetInteger("mode", 0);
     }
+    
+    public void PlatWin()
+    {
+        animator.SetInteger("mode", 5);
+    }
+
+    public void PlatLose()
+    {
+        animator.SetInteger("mode", 6);
+    }
 
     public void LoveWin()
     {
@@ -38,18 +49,6 @@ public class PlayerBehaviour : MonoBehaviour
     public void LoveLose()
     {
         animator.SetInteger("mode", 2);
-    }
-
-    public void PlatWin()
-    {
-        animator.SetInteger ("mode", 5);
-        Debug.Log("plat win");
-    }
-
-    public void PlatLose()
-    {
-        animator.SetInteger("mode", 0);
-        animator.SetInteger("mode", 6);
     }
 
     public void ParentWin()

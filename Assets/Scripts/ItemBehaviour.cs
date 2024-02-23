@@ -8,7 +8,7 @@ public class ItemBehaviour : MonoBehaviour, IPointerDownHandler, IDragHandler, I
 {
     public GameObject item;    
     private float scaleDown = 0.5f;
-    private float potionScale = 0.5f;
+    private float potionScale = 0.2f; // in soup
 
     public enum ingredient { in1, in2, in3, in4, in5, in6, in7, in8, in9 }
     public ingredient ingredientName;

@@ -23,18 +23,24 @@ public class CameraMove : MonoBehaviour
 
     public void MoveToLeft()
     {
-        //Debug.Log("moving to the left from " + virtualCamera.transform.localPosition);
-        currentPos.x -= moveStep;
-        virtualCamera.ForceCameraPosition(new Vector3(currentPos.x, currentPos.y, currentPos.z), Quaternion.Euler(0, 0, 0));
+        if (GameManager.instance.dialogueNow == false)
+        {
+            //Debug.Log("moving to the left from " + virtualCamera.transform.localPosition);
+            currentPos.x -= moveStep;
+            virtualCamera.ForceCameraPosition(new Vector3(currentPos.x, currentPos.y, currentPos.z), Quaternion.Euler(0, 0, 0));
+        }
         //Debug.Log("now its " + virtualCamera.transform.localPosition);
     }
 
     public void MoveToRight()
     {
-        //Debug.Log("moving to the right from " + virtualCamera.transform.localPosition);
-        currentPos.x += moveStep;
-        virtualCamera.ForceCameraPosition(new Vector3(currentPos.x, currentPos.y, currentPos.z), Quaternion.Euler(0, 0, 0));
-        //Debug.Log("now its " + virtualCamera.transform.localPosition);
+        if (GameManager.instance.dialogueNow == false)
+        {
+            //Debug.Log("moving to the right from " + virtualCamera.transform.localPosition);
+            currentPos.x += moveStep;
+            virtualCamera.ForceCameraPosition(new Vector3(currentPos.x, currentPos.y, currentPos.z), Quaternion.Euler(0, 0, 0));
+        }
+            //Debug.Log("now its " + virtualCamera.transform.localPosition);
     }
 
 
